@@ -52,6 +52,7 @@ const PersonTable = React.memo((props) => {
   }
 
   const classes = useStyles();
+  
   return (
     <TableContainer component={Paper}>
       <h2>Pacientes</h2>

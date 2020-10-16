@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import api from "../api";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
@@ -48,19 +48,36 @@ const Div5 = styled.div`
 `;
 
 export default function AddForm(props) {
+
   const classes = useStyles();
-  const [nome, setNome] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [sexo, setSexo] = useState("");
-  const [idade, setIdade] = useState("");
-  const [peso, setPeso] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [email, setEmail] = useState("");
-  const [endereco, setEndereco] = useState("");
+  const [nome, setNome] = useState(
+    props.personToEdit ? props.personToEdit.nome : ""
+  );
+  const [cpf, setCpf] = useState(
+    props.personToEdit ? props.personToEdit.cpf : ""
+  );
+  const [sexo, setSexo] = useState(
+    props.personToEdit ? props.personToEdit.sexo : ""
+  );
+  const [idade, setIdade] = useState(
+    props.personToEdit ? props.personToEdit.idade : null
+  );
+  const [peso, setPeso] = useState(
+    props.personToEdit ? props.personToEdit.peso : null
+  );
+  const [telefone, setTelefone] = useState(
+    props.personToEdit ? props.personToEdit.telefone : ""
+  );
+  const [email, setEmail] = useState(
+    props.personToEdit ? props.personToEdit.email : ""
+  );
+  const [endereco, setEndereco] = useState(
+    props.personToEdit ? props.personToEdit.endereco : ""
+  );
 
   const backHome = () => {
     props.changePage("home");
-  }
+  };
 
   const addEdit = () => {
     const paciente = {
@@ -68,13 +85,12 @@ export default function AddForm(props) {
       nome: nome,
       cpf: cpf,
       sexo: sexo,
-      idade: idade,
-      peso: peso,
+      idade: parseInt(idade),
+      peso: parseInt(peso),
       telefone: telefone,
       email: email,
       endereco: endereco,
     };
-
     if (props.personToEdit) {
       api
         .put(`pacientes/${props.personToEdit.id}`, paciente)
@@ -108,67 +124,60 @@ export default function AddForm(props) {
           <TextField
             id="inputName"
             label="Nome"
-            defaultValue={props.nome}
             onChange={(e) => setNome(e.target.value)}
-            defaultValue={props.personToEdit ? props.personToEdit.nome : ""}
+            defaultValue={nome}
           />
           <TextField
             id="inputCpf"
             label="CPF"
-            defaultValue={props.cpf}
             onChange={(e) => setCpf(e.target.value)}
-            defaultValue={props.personToEdit ? props.personToEdit.cpf : ""}
+            defaultValue={cpf}
           />
           <TextField
             id="inputSex"
             label="Sexo"
-            defaultValue={props.sexo}
             inputProps={{
               maxLength: 1,
             }}
             onChange={(e) => setSexo(e.target.value)}
-            defaultValue={props.personToEdit ? props.personToEdit.sexo : ""}
+            defaultValue={sexo}
           />
           <TextField
             id="inputIdade"
             label="Idade"
             type="number"
-            defaultValue={props.idade}
             inputProps={{
               maxLength: 3,
             }}
             onChange={(e) => setIdade(e.target.value)}
-            defaultValue={props.personToEdit ? props.personToEdit.idade : ""}
+            defaultValue={idade}
           />
           <TextField
             id="inputPeso"
             label="Peso"
             type="number"
             onChange={(e) => setPeso(e.target.value)}
-            defaultValue={props.personToEdit ? props.personToEdit.peso : ""}
+            defaultValue={peso}
           />
         </div>
         <div>
           <TextField
             id="inputTelefone"
             label="Telefone"
-            defaultValue={props.telefone}
             onChange={(e) => setTelefone(e.target.value)}
-            defaultValue={props.personToEdit ? props.personToEdit.telefone : ""}
+            defaultValue={telefone}
           />
           <TextField
             id="inputEmail"
             label="E-mail"
-            defaultValue={props.email}
             onChange={(e) => setEmail(e.target.value)}
-            defaultValue={props.personToEdit ? props.personToEdit.email : ""}
+            defaultValue={email}
           />
           <TextField
             id="inputEndereço"
             label="Endereço"
-            defaultValue={props.endereço}
             onChange={(e) => setEndereco(e.target.value)}
-            defaultValue={props.personToEdit ? props.personToEdit.endereco : ""}
+            defaultValue={endereco}
           />
         </div>
         <Div5>

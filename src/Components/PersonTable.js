@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -17,12 +16,6 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import styled from "styled-components";
 import api from "../api";
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
 
 const useRowStyles = makeStyles({
   root: {
@@ -57,14 +50,12 @@ const PersonTable = React.memo((props) => {
 
   const update = (id) => {
     const paciente = pacientes.filter((curr) => {
-      return curr.id == id;
+      return curr.id === id;
     });
 
     props.updatePaciente(paciente[0]);
     props.changePage("update");
   };
-
-  const classes = useStyles();
 
   function Row(props) {
     const { row } = props;
@@ -139,7 +130,7 @@ const PersonTable = React.memo((props) => {
         </TableHead>
         <TableBody>
           {pacientes.map((row) => (
-            <Row key={row.nome} row={row} />
+            <Row key={row.id} row={row} />
           ))}
         </TableBody>
       </Table>

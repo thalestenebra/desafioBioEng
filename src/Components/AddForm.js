@@ -5,6 +5,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import styled from "styled-components";
 import api from "../api";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,6 +75,14 @@ export default function AddForm(props) {
   const [endereco, setEndereco] = useState(
     props.personToEdit ? props.personToEdit.endereco : ""
   );
+
+  const AddOrEddit = () => {
+    if(props.personToEdit){
+      return <EditIcon></EditIcon>
+    } else {
+      return <AddCircleIcon></AddCircleIcon>;
+    }
+  }
 
   const backHome = () => {
     props.changePage("home");
@@ -182,7 +191,7 @@ export default function AddForm(props) {
         </div>
         <Div5>
           <AddButton align="right" onClick={() => addEdit()}>
-            <AddCircleIcon></AddCircleIcon>
+            <AddOrEddit></AddOrEddit>
           </AddButton>
         </Div5>
       </form>
